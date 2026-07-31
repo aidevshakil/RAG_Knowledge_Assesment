@@ -8,6 +8,7 @@ the sidebar transparently rebuilds the engine.
 
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
@@ -40,8 +41,29 @@ __all__ = [
 ]
 
 
+def _load_streamlit_secrets() -> None:
+    """Copy `st.secrets` into the environment so hosted deploys configure the
+    same way local `.env` runs do — `Settings` only ever reads os.environ.
+
+    A real environment variable always wins, and accessing `st.secrets` when no
+    secrets are configured raises, so the whole thing is best-effort.
+    """
+    try:
+        secrets = st.secrets
+    except Exception:
+        return
+    try:
+        items = list(secrets.items())
+    except Exception:
+        return
+    for key, value in items:
+        if isinstance(value, (str, int, float, bool)):
+            os.environ.setdefault(str(key), str(value))
+
+
 @st.cache_resource(show_spinner=False)
 def base_settings() -> Settings:
+    _load_streamlit_secrets()
     settings = Settings.from_env()
     settings.ensure_dirs()
     configure_logging(settings.log_level)
