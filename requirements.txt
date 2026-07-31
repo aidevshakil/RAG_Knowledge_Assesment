@@ -1,0 +1,24 @@
+# ---- core (required) -------------------------------------------------------
+streamlit>=1.36
+numpy>=1.26
+pypdf>=4.2
+python-docx>=1.1
+python-dotenv>=1.0
+requests>=2.32
+pandas>=2.2
+
+# ---- vector stores (install at least one; numpy backend needs nothing) -----
+chromadb>=0.5
+faiss-cpu>=1.8 ; platform_machine != "arm64" or platform_system != "Windows"
+
+# ---- embeddings (pick what you need) --------------------------------------
+sentence-transformers>=3.0        # local HuggingFace embeddings
+openai>=1.30                      # OpenAI embeddings + OpenAI LLM
+
+# ---- LLM backends ---------------------------------------------------------
+groq>=0.9
+anthropic>=0.34
+
+# ---- optional extras ------------------------------------------------------
+beautifulsoup4>=4.12              # website ingestion
+altair>=5.3                       # performance charts

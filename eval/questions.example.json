@@ -1,0 +1,31 @@
+{
+  "_comment": [
+    "Labelled benchmark suite. `question` is required.",
+    "`expected_sources`: substrings matched against a hit's document name, id or text —",
+    "  supplying them unlocks hit-rate, recall@k, MRR and nDCG.",
+    "`expected_answer_terms`: facts the answer should contain — scores answer correctness.",
+    "Run with:  python -m rag_assistant.cli benchmark --suite eval/questions.example.json --label before"
+  ],
+  "questions": [
+    {
+      "question": "What is retrieval-augmented generation?",
+      "expected_sources": ["rag"],
+      "expected_answer_terms": ["retrieval", "generation"]
+    },
+    {
+      "question": "Which vector database does this project use by default?",
+      "expected_sources": ["README"],
+      "expected_answer_terms": ["chroma"]
+    },
+    {
+      "question": "How are deleted documents removed from the index?",
+      "expected_sources": ["README"],
+      "expected_answer_terms": ["vectors"]
+    },
+    {
+      "question": "What is the capital of an entirely unrelated fictional country?",
+      "expected_sources": [],
+      "expected_answer_terms": []
+    }
+  ]
+}
